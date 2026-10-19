@@ -5,6 +5,14 @@ require_once __DIR__ . '/db.php';
 
 const SESSION_TIMEOUT = 1800;
 const AUTH_ROLES = ['ADMIN', 'ASSOCIADO'];
+function qr_secret(): string
+{
+    $secret = getenv('NEXUS_QR_SECRET') ?: '';
+    if ($secret === '') {
+        $secret = 'development-only-change-this-secret';
+    }
+    return $secret;
+}
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
