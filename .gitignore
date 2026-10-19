@@ -1,0 +1,22 @@
+# Segredos e ambiente local
+.env
+.env.*
+!.env.example
+
+# Uploads e dados pessoais
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Ficheiros temporários e logs
+*.log
+*.tmp
+*.bak
+fix_admin_password.php
+
+# Ferramentas
+.vscode/
+.idea/
+node_modules/
+vendor/
+.DS_Store
+Thumbs.db

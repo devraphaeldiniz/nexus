@@ -1,0 +1,1 @@
+<?php require_once __DIR__.'/auth.php'; function registrar_auditoria($usuario_id,$acao,$tabela,$registro_id,$dados_antigos,$dados_novos){audit($acao,$tabela,$registro_id,$dados_antigos,$dados_novos);}
