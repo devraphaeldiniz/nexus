@@ -7,12 +7,28 @@ const SESSION_TIMEOUT = 1800;
 const AUTH_ROLES = ['ADMIN', 'ASSOCIADO'];
 function qr_secret(): string
 {
-    $secret = getenv('NEXUS_QR_SECRET') ?: '';
-    if ($secret === '') {
-        $secret = 'development-only-change-this-secret';
+    $secret = trim((string) getenv('NEXUS_QR_SECRET'));
+    if ($secret === '' && (getenv('APP_ENV') ?: 'local') !== 'production') {
+        return 'local-only-nexus-qr-secret-change-before-production';
+    }
+    if (strlen($secret) < 32) {
+        throw new RuntimeException('NEXUS_QR_SECRET deve ter pelo menos 32 caracteres.');
     }
     return $secret;
 }
+
+function security_headers(): void
+{
+    if (headers_sent()) return;
+    header('X-Content-Type-Options: nosniff');
+    header('X-Frame-Options: SAMEORIGIN');
+    header('Referrer-Policy: strict-origin-when-cross-origin');
+    header('Permissions-Policy: camera=(self), microphone=()');
+    if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+        header('Strict-Transport-Security: max-age=31536000; includeSubDomains');
+    }
+}
+security_headers();
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     $secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
