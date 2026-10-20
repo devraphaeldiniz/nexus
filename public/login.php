@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         verify_csrf();
+        if (login_limited($email)) { throw new InvalidArgumentException('Muitas tentativas. Aguarde 15 minutos.'); }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
             throw new InvalidArgumentException('Informe um e-mail válido e uma senha.');
@@ -31,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $statement->fetch();
 
         if (!$user || !password_verify($password, $user['senha_hash'])) {
+            record_login_failure($email);
             if ($user) {
                 registrar_auditoria((int) $user['id'], 'LOGIN_FALHOU', 'usuarios', (int) $user['id']);
             }
