@@ -45,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         login_user($user);
         audit('LOGIN_SUCESSO', 'usuarios', (int) $user['id']);
+        if (!empty($user['primeiro_acesso'])) { header('Location: ' . app_url('trocar_senha.php')); exit; }
         redirect_authenticated_user();
     } catch (InvalidArgumentException $exception) {
         $error = $exception->getMessage();
