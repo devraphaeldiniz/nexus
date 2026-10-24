@@ -1,29 +1,31 @@
-# Nexus
+﻿# Nexus
 
-> Plataforma web para gestão de associados, mensalidades, carteirinhas digitais e validação de acesso por QR Code.
+> **Nota:** Este repositório é a plataforma de **gestão de associados** (PHP/MySQL). Não é o marketplace **nexus-commerce** nem o e-commerce **nexus-shop**.
 
-O **Nexus** centraliza a operação administrativa de associações numa interface moderna, responsiva e orientada a dados. O sistema permite gerir associados, acompanhar a situação financeira, importar retornos de consignação e validar carteirinhas digitais em tempo real.
+> Plataforma web para gestÃ£o de associados, mensalidades, carteirinhas digitais e validaÃ§Ã£o de acesso por QR Code.
+
+O **Nexus** centraliza a operaÃ§Ã£o administrativa de associaÃ§Ãµes numa interface moderna, responsiva e orientada a dados. O sistema permite gerir associados, acompanhar a situaÃ§Ã£o financeira, importar retornos de consignaÃ§Ã£o e validar carteirinhas digitais em tempo real.
 
 ## Funcionalidades
 
 - Landing page institucional responsiva;
 - Login unificado para administradores e associados;
-- Sessões seguras com timeout por inatividade;
+- SessÃµes seguras com timeout por inatividade;
 - RBAC para os perfis `ADMIN` e `ASSOCIADO`;
-- Proteção CSRF nos formulários;
+- ProteÃ§Ã£o CSRF nos formulÃ¡rios;
 - Password hashing com Argon2id;
-- Dashboard administrativo com métricas reais;
-- Cadastro, pesquisa, consulta e edição de associados;
+- Dashboard administrativo com mÃ©tricas reais;
+- Cadastro, pesquisa, consulta e ediÃ§Ã£o de associados;
 - Upload seguro de fotografias;
 - Carteirinha digital responsiva;
-- Card individual para impressão ou PDF;
-- QR Code assinado para identificação do associado;
-- Leitor QR Code através da câmara do dispositivo;
-- Lançamento manual de mensalidades;
-- Histórico financeiro por associado;
-- Importação de retornos ECONSIG/SEPLAG;
-- Importação de associados por CSV;
-- Auditoria de operações importantes;
+- Card individual para impressÃ£o ou PDF;
+- QR Code assinado para identificaÃ§Ã£o do associado;
+- Leitor QR Code atravÃ©s da cÃ¢mara do dispositivo;
+- LanÃ§amento manual de mensalidades;
+- HistÃ³rico financeiro por associado;
+- ImportaÃ§Ã£o de retornos ECONSIG/SEPLAG;
+- ImportaÃ§Ã£o de associados por CSV;
+- Auditoria de operaÃ§Ãµes importantes;
 - Interface SaaS responsiva com Tailwind CSS via CDN.
 
 ## Stack
@@ -31,7 +33,7 @@ O **Nexus** centraliza a operação administrativa de associações numa interfa
 - PHP 8.2+;
 - MySQL 8.0+ ou MariaDB;
 - PDO com prepared statements;
-- HTML5 semântico;
+- HTML5 semÃ¢ntico;
 - Tailwind CSS via CDN;
 - JavaScript ES6;
 - QRCode.js;
@@ -41,15 +43,15 @@ O **Nexus** centraliza a operação administrativa de associações numa interfa
 ## Requisitos
 
 - PHP 8.2 ou superior;
-- Extensões PHP `pdo_mysql`, `fileinfo` e `mbstring`;
+- ExtensÃµes PHP `pdo_mysql`, `fileinfo` e `mbstring`;
 - MySQL 8.0+ ou MariaDB;
 - Apache/Nginx ou servidor embutido do PHP;
-- Permissão de escrita em `public/uploads/associados` para upload de fotos;
-- HTTPS recomendado para utilização da câmara em dispositivos externos.
+- PermissÃ£o de escrita em `public/uploads/associados` para upload de fotos;
+- HTTPS recomendado para utilizaÃ§Ã£o da cÃ¢mara em dispositivos externos.
 
-## Instalação com Laragon
+## InstalaÃ§Ã£o com Laragon
 
-1. Clone o projeto para a pasta pública do Laragon:
+1. Clone o projeto para a pasta pÃºblica do Laragon:
 
 ```powershell
 cd C:\laragon\www
@@ -64,7 +66,7 @@ git clone https://github.com/devraphaeldiniz/nexus.git
 SOURCE C:/laragon/www/nexus/schema.sql;
 ```
 
-4. Execute as migrações adicionais:
+4. Execute as migraÃ§Ãµes adicionais:
 
 ```sql
 SOURCE C:/laragon/www/nexus/migracao_foto.sql;
@@ -83,14 +85,14 @@ C:\laragon\www\nexus\public\uploads\associados
 http://localhost/nexus/public/
 ```
 
-Login administrativo de demonstração:
+Login administrativo de demonstraÃ§Ã£o:
 
 ```text
 E-mail: admin@nexus.com
 Senha: AdminPassword123!
 ```
 
-> Altere a senha de demonstração antes de qualquer utilização real.
+> Altere a senha de demonstraÃ§Ã£o antes de qualquer utilizaÃ§Ã£o real.
 
 ## Servidor embutido do PHP
 
@@ -107,18 +109,18 @@ Acesse:
 http://localhost:8000/
 ```
 
-## Configuração da base de dados
+## ConfiguraÃ§Ã£o da base de dados
 
-Por padrão, o sistema utiliza:
+Por padrÃ£o, o sistema utiliza:
 
 ```text
 Host: 127.0.0.1
 Banco: nexus
-Usuário: root
+UsuÃ¡rio: root
 Senha: vazia
 ```
 
-A configuração também aceita variáveis de ambiente:
+A configuraÃ§Ã£o tambÃ©m aceita variÃ¡veis de ambiente:
 
 ```text
 DB_HOST=127.0.0.1
@@ -127,95 +129,95 @@ DB_USER=root
 DB_PASS=
 ```
 
-Em ambientes reais, configure essas variáveis e não grave credenciais diretamente no código.
+Em ambientes reais, configure essas variÃ¡veis e nÃ£o grave credenciais diretamente no cÃ³digo.
 
 ## Estrutura do projeto
 
 ```text
 nexus/
-├── config/
-│   ├── auth.php              # Sessão, RBAC, CSRF e auditoria
-│   ├── db.php                # Conexão PDO
-│   ├── logger.php            # Compatibilidade do audit log
-│   └── ui.php                # Layout administrativo partilhado
-├── public/
-│   ├── index.php             # Landing page
-│   ├── login.php             # Login unificado
-│   ├── logout.php            # Encerramento de sessão
-│   ├── api/
-│   │   └── validar_qr.php    # Validação do QR Code
-│   ├── admin/
-│   │   ├── dashboard.php
-│   │   ├── associados.php
-│   │   ├── novo_associado.php
-│   │   ├── perfil.php
-│   │   ├── editar_associado.php
-│   │   ├── card.php
-│   │   ├── financeiro.php
-│   │   ├── leitor.php
-│   │   ├── importar_associados.php
-│   │   ├── importar_retorno.php
-│   │   └── gerar_planilha_demo.php
-│   ├── associado/
-│   │   └── carteirinha.php
-│   └── uploads/
-│       └── associados/
-├── migracao_foto.sql
-├── migracao_contato.sql
-├── schema.sql
-└── README.md
+â”œâ”€â”€ config/
+â”‚   â”œâ”€â”€ auth.php              # SessÃ£o, RBAC, CSRF e auditoria
+â”‚   â”œâ”€â”€ db.php                # ConexÃ£o PDO
+â”‚   â”œâ”€â”€ logger.php            # Compatibilidade do audit log
+â”‚   â””â”€â”€ ui.php                # Layout administrativo partilhado
+â”œâ”€â”€ public/
+â”‚   â”œâ”€â”€ index.php             # Landing page
+â”‚   â”œâ”€â”€ login.php             # Login unificado
+â”‚   â”œâ”€â”€ logout.php            # Encerramento de sessÃ£o
+â”‚   â”œâ”€â”€ api/
+â”‚   â”‚   â””â”€â”€ validar_qr.php    # ValidaÃ§Ã£o do QR Code
+â”‚   â”œâ”€â”€ admin/
+â”‚   â”‚   â”œâ”€â”€ dashboard.php
+â”‚   â”‚   â”œâ”€â”€ associados.php
+â”‚   â”‚   â”œâ”€â”€ novo_associado.php
+â”‚   â”‚   â”œâ”€â”€ perfil.php
+â”‚   â”‚   â”œâ”€â”€ editar_associado.php
+â”‚   â”‚   â”œâ”€â”€ card.php
+â”‚   â”‚   â”œâ”€â”€ financeiro.php
+â”‚   â”‚   â”œâ”€â”€ leitor.php
+â”‚   â”‚   â”œâ”€â”€ importar_associados.php
+â”‚   â”‚   â”œâ”€â”€ importar_retorno.php
+â”‚   â”‚   â””â”€â”€ gerar_planilha_demo.php
+â”‚   â”œâ”€â”€ associado/
+â”‚   â”‚   â””â”€â”€ carteirinha.php
+â”‚   â””â”€â”€ uploads/
+â”‚       â””â”€â”€ associados/
+â”œâ”€â”€ migracao_foto.sql
+â”œâ”€â”€ migracao_contato.sql
+â”œâ”€â”€ schema.sql
+â””â”€â”€ README.md
 ```
 
-## Importação de associados
+## ImportaÃ§Ã£o de associados
 
-O módulo aceita CSV separado por ponto e vírgula com as colunas:
+O mÃ³dulo aceita CSV separado por ponto e vÃ­rgula com as colunas:
 
 ```text
 nome;email;telefone;cpf;matricula;senha;foto_url
 ```
 
-Para gerar uma planilha de demonstração com 20 associados:
+Para gerar uma planilha de demonstraÃ§Ã£o com 20 associados:
 
 ```text
 http://localhost/nexus/public/admin/gerar_planilha_demo.php
 ```
 
-O processo de importação oferece pré-visualização e, após confirmação, remove apenas os utilizadores com perfil `ASSOCIADO`, preservando o administrador.
+O processo de importaÃ§Ã£o oferece prÃ©-visualizaÃ§Ã£o e, apÃ³s confirmaÃ§Ã£o, remove apenas os utilizadores com perfil `ASSOCIADO`, preservando o administrador.
 
-## Importação financeira
+## ImportaÃ§Ã£o financeira
 
-O módulo de retorno aceita ficheiros de texto separados por `;`, `|`, vírgula ou tabulação. Cada linha deve conter:
+O mÃ³dulo de retorno aceita ficheiros de texto separados por `;`, `|`, vÃ­rgula ou tabulaÃ§Ã£o. Cada linha deve conter:
 
 ```text
 CPF_OU_MATRICULA;VALOR
 ```
 
-O fluxo recomendado é:
+O fluxo recomendado Ã©:
 
 1. Enviar o ficheiro;
 2. Conferir os registros encontrados;
-3. Revisar rejeições;
-4. Efetivar a liquidação;
-5. Confirmar a atualização financeira do associado.
+3. Revisar rejeiÃ§Ãµes;
+4. Efetivar a liquidaÃ§Ã£o;
+5. Confirmar a atualizaÃ§Ã£o financeira do associado.
 
-## Segurança
+## SeguranÃ§a
 
-O projeto inclui medidas básicas alinhadas às boas práticas OWASP:
+O projeto inclui medidas bÃ¡sicas alinhadas Ã s boas prÃ¡ticas OWASP:
 
 - PDO com prepared statements;
-- Escape de saída com `htmlspecialchars`;
-- CSRF token por sessão;
-- Regeneração do ID de sessão após login;
+- Escape de saÃ­da com `htmlspecialchars`;
+- CSRF token por sessÃ£o;
+- RegeneraÃ§Ã£o do ID de sessÃ£o apÃ³s login;
 - Cookies `HttpOnly` e `SameSite`;
-- Timeout de sessão;
-- Controle de autorização por perfil;
+- Timeout de sessÃ£o;
+- Controle de autorizaÃ§Ã£o por perfil;
 - Hash de senha com `PASSWORD_ARGON2ID`;
-- Validação MIME de imagens;
+- ValidaÃ§Ã£o MIME de imagens;
 - Limite de tamanho de upload;
-- Auditoria de login, alterações, importações e pagamentos;
+- Auditoria de login, alteraÃ§Ãµes, importaÃ§Ãµes e pagamentos;
 - Tokens HMAC para QR Codes.
 
-Para produção, recomenda-se ainda configurar HTTPS, secrets externos, backups, política de retenção de logs, rate limiting, headers de segurança e gestão de permissões do servidor.
+Para produÃ§Ã£o, recomenda-se ainda configurar HTTPS, secrets externos, backups, polÃ­tica de retenÃ§Ã£o de logs, rate limiting, headers de seguranÃ§a e gestÃ£o de permissÃµes do servidor.
 
 ## Desenvolvimento
 
@@ -229,16 +231,17 @@ Criar um commit:
 
 ```powershell
 git add .
-git commit -m "descrição da alteração"
+git commit -m "descriÃ§Ã£o da alteraÃ§Ã£o"
 git push origin main
 ```
 
-## Licença
+## LicenÃ§a
 
-Projeto privado desenvolvido para a plataforma Nexus. A utilização, redistribuição ou publicação deve ser autorizada pelo proprietário do projeto.
+Projeto privado desenvolvido para a plataforma Nexus. A utilizaÃ§Ã£o, redistribuiÃ§Ã£o ou publicaÃ§Ã£o deve ser autorizada pelo proprietÃ¡rio do projeto.
 
 ## Contacto
 
 - Website: [devraphaeldiniz.com.br](https://devraphaeldiniz.com.br)
 - LinkedIn: [linkedin.com/in/devraphaeldiniz](https://linkedin.com/in/devraphaeldiniz)
 - WhatsApp: [(31) 99440-2252](https://wa.me/5531994402252)
+
